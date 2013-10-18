@@ -1,0 +1,21 @@
+package com.jeremie.dp.filter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class FilterChain {
+	List <Filter> filters = new ArrayList<Filter>();
+	int index = 0;
+	public FilterChain addFilter(Filter f) {
+		this.filters.add(f);
+		return this;
+	}
+
+	public void doFilter(Request request, Response response) {
+		if(index == filters.size()) return ;
+		Filter f = filters.get(index);
+		index ++;
+		f.doFilter(request, response,this);
+	}
+}
